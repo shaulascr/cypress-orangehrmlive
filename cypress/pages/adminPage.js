@@ -71,12 +71,12 @@ class adminPage {
     fillLastNameEmp(){
         cy.get('[name="lastName"]').clear().type('Santoso');
     }
-    fillId(){
-        cy.get('.oxd-grid-item > .oxd-input-group > :nth-child(2) > .oxd-input').clear().type('0122323');
+    fillId(id){
+        cy.get('.oxd-grid-item > .oxd-input-group > :nth-child(2) > .oxd-input').clear().type(id);
     }
-    createDetailEmp(){
+    createDetailEmp(username){
         cy.get('.oxd-switch-wrapper').click();
-        cy.get(':nth-child(4) > .oxd-grid-2 > :nth-child(1) > .oxd-input-group > :nth-child(2) > .oxd-input').clear().type('Budbud');
+        cy.get(':nth-child(4) > .oxd-grid-2 > :nth-child(1) > .oxd-input-group > :nth-child(2) > .oxd-input').clear().type(username);
         cy.get('[data-v-7ef819fd=""]').contains('Enabled').click();
         
 

@@ -4,9 +4,11 @@ import adminPage from "../../pages/adminPage";
 
 let passwordAdmin = "admin123";
 let usernameAdmin = "Admin";
+const newusernameAdmin = 'askaraya';
 const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const randomNumber = Math.floor(Math.random() * 1000000);
 const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
-const genereateUsername = Cypress._.sampleSize(characters, 5).join('');
+const genereateUsername = Cypress._.sampleSize(characters, 7).join('');
 const adminPass = "vJ#^K7ZU_63X";
 const wrongPassword = Cypress._.sampleSize(chars, 3).join('');
 
@@ -42,6 +44,7 @@ describe('Buat akun untuk karyawan', function(){
         cy.get('.orangehrm-header-container > .oxd-button').contains('Add').click();     
     });
     it('Berhasil buat akun', function(){
+        const id = randomNumber.toString();
         adminPage.openPIM();
         cy.url().should('include', '/web/index.php/pim/addEmployee');
         cy.get('.oxd-text.oxd-text--h6.orangehrm-main-title').should('have.text', 'Add Employee');
@@ -49,8 +52,8 @@ describe('Buat akun untuk karyawan', function(){
         adminPage.fillFirstNameEmp();
         adminPage.fillMiddleNameEmp();
         adminPage.fillLastNameEmp();
-        adminPage.fillId();
-        adminPage.createDetailEmp();
+        adminPage.fillId(id);
+        adminPage.createDetailEmp(genereateUsername);
         adminPage.createDetailPass(adminPass);
         cy.get('.oxd-toast-content').should('contain', 'Success');
         cy.screenshot('berhasil-tambah-karyawan');
@@ -78,7 +81,7 @@ describe('Buat admin', function(){
         adminPage.fillUserRole();
         adminPage.fillEmployeeName();
         adminPage.fillStatus();
-        adminPage.fillUsername(genereateUsername);
+        adminPage.fillUsername(newusernameAdmin);
         adminPage.fillPassword(adminPass);
         cy.contains('button', 'Save').click();
         cy.get('.oxd-toast-content').should('contain', 'Success');
@@ -119,7 +122,8 @@ describe('Tambah cuti', function(){
         cy.wait(4000);
         cy.contains('span', 'Leave').click();
         cy.get('.oxd-topbar-body-nav > ul > :nth-child(1)').click();
-        cy.xpath("(//div[@class='oxd-select-text oxd-select-text--active'])[1]").click();
+        cy.screenshot('halaman-request-cuti');
+        cy.xpath("//div[@class='oxd-select-text oxd-select-text--focus']").click();
         cy.get('.oxd-select-dropdown').contains('CAN - Personal').click();
         cy.get(':nth-child(1) > .oxd-input-group > :nth-child(2) > .oxd-date-wrapper > .oxd-date-input > .oxd-input').clear().type('2025-05-28');
         cy.get(':nth-child(2) > .oxd-input-group > :nth-child(2) > .oxd-date-wrapper > .oxd-date-input > .oxd-input').clear().type('2025-05-30');
