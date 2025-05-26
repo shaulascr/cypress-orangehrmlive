@@ -4,8 +4,8 @@ import adminPage from "../../pages/adminPage";
 
 let passwordAdmin = "admin123";
 let usernameAdmin = "Admin";
-const newusernameAdmin = 'askaraya';
 const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const newusernameAdmin = Cypress._.sampleSize(characters, 5).join('');;
 const randomNumber = Math.floor(Math.random() * 1000000);
 const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
 const genereateUsername = Cypress._.sampleSize(characters, 7).join('');
